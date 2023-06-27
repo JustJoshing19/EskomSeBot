@@ -135,3 +135,7 @@ poetry.lock
 
 **/.DS_Store
 **tmp
+
+# Other
+
+Constants/
