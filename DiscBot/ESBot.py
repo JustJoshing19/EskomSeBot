@@ -16,4 +16,3 @@ EDBot = EskomSeBot(intents=Config.botIntents, command_prefix=Config.comPrefix)
 @EDBot.command()
 async def ping(ctx):
     await ctx.send('Pong!')
-

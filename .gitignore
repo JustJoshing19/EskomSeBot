@@ -139,3 +139,6 @@ poetry.lock
 # Other
 
 Constants/
+tests/
+Test*.txt
+*.sqlite3
