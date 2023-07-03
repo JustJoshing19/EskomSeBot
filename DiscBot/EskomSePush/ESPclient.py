@@ -1,5 +1,7 @@
 import requests
-from core import Config, DatabaseHandler
+from json import dumps
+from .core import Config
+from .core import DatabaseHandler
 
 TESTING = False
 
@@ -28,8 +30,13 @@ class ESP_API_Client():
         print(response.text)
 
     def getAreaInfo(self, testing: bool, id: str):
+        testRequest = ''
+        if testing:
+            testRequest = '&test=future'
+        area = id
+
         url = self.REQUESTURLS['Areas_Search_Text']
-        url = "https://developer.sepush.co.za/business/2.0/area?id=eskde-10-fourwaysext10cityofjohannesburggauteng&test=future"
+        url = "https://developer.sepush.co.za/business/2.0/area?id=" + area + testRequest
         payload={}
         headers={
             "token": Config.Token
@@ -40,7 +47,7 @@ class ESP_API_Client():
 
     def getAreaSearch(self, text: str):
         url = self.REQUESTURLS['AreaInfo']
-        url = "https://developer.sepush.co.za/business/2.0/areas_search?text=brackenfell"
+        url = "https://developer.sepush.co.za/business/2.0/areas_search?text=" + text
         payload={}
         headers={
             "token": Config.Token
@@ -51,3 +58,13 @@ class ESP_API_Client():
 
     ###### Database Requests ######
     # TODO Add methods to send requests to the database
+    def getLoadsheddingTimes(self) -> dict:
+        data = self.DBHandler.getAllUsersLoadshedding()
+
+        sortedData = {}
+
+        for item in data:
+            sortedData[item[3]] = [item[1], item[2]]
+
+        return sortedData
+        print(sortedData)
