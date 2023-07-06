@@ -1,4 +1,3 @@
-# TODO Create class to handle database requests from the ESPclient
 import sqlite3
 import os
 
@@ -19,7 +18,7 @@ class DatabaseHandler():
         self.conn.commit()
 
     ###### Get & Add Methods ######
-    def getAllArea(self) -> list:
+    def getAllAreas(self) -> list:
         query: str = "SELECT * from 'Areas'"
         self.exeSelect(query)
         return self.cursor.fetchall()

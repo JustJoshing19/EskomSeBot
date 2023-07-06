@@ -1,7 +1,8 @@
 import requests
-from json import dumps
+from datetime import datetime
 from .core import Config
 from .core import DatabaseHandler
+from asyncio import sleep
 
 TESTING = False
 
@@ -64,7 +65,38 @@ class ESP_API_Client():
         sortedData = {}
 
         for item in data:
-            sortedData[item[3]] = [item[1], item[2]]
+            startTime = self.formatTime(item[1])
+            endTime = self.formatTime(item[2])
+            sortedData[item[3]] = [startTime, endTime]
+        print(sortedData)
 
         return sortedData
-        print(sortedData)
+    
+    async def getAllAreas(self) -> list:
+        await sleep(2)
+        AreaList = self.DBHandler.getAllAreas()
+        areas = []
+        for i in range(0, AreaList.__len__()):
+            item = AreaList[i]
+            areas.append({'id':item[0], 'name':item[1]})
+        return areas
+    
+    async def addUser(self, user: dict) -> bool:
+        if not self.checkForUser(user['id']):
+            self.DBHandler.addUser(user['id'], user['name'], user['area'])
+            return True
+        return False
+
+    def checkForUser(self, id: str) -> bool:
+        result: list = self.DBHandler.getUser(id)
+        if result:
+            return True
+        return False
+
+
+    ###### Util Methods ######
+    def formatTime(self, times: str) -> str:
+        times = times[:-6]
+        times = times.replace("T", " ")
+        times: datetime =  datetime.strptime(times, "%Y-%m-%d %H:%M:%S") 
+        return times.strftime("%m-%d %H:%M")

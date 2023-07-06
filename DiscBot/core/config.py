@@ -1,3 +1,4 @@
+# TODO move all config files to one folder
 from os import environ
 from dotenv import load_dotenv
 from discord import Intents

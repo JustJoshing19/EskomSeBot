@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+from .DiscViews import AreaSelectView
 from .core import Config
 from .EskomSePush import ESP_API_Client
 
@@ -19,9 +20,15 @@ EDBot = EskomSeBot(intents=Config.botIntents, command_prefix=Config.comPrefix)
 
 #### Commands ####
 @EDBot.command()
-async def join(ctx: commands.context):
-    author: discord.Member = ctx.author
-    print(author.name)
+async def join(ctx: commands.context, args = None):
+    espclient = ESP_API_Client()
+    areas = await espclient.getAllAreas()
+    if args:
+        await ctx.reply(args)
+    else:
+        message = areas.__str__()
+        await ctx.reply(message)
+
 
 @EDBot.command()
 async def loadshedding(ctx: commands.context):
@@ -30,7 +37,13 @@ async def loadshedding(ctx: commands.context):
     messages:str = ''
     
     for name, period in times.items():
-        messages = '{}{}: {} to {}\n'.format(messages, name, period[0], period[1])
+        messages = '{:>20}{}: {} to {}\n'.format(messages, name, period[0], period[1])
     
     print(messages)
     await ctx.send(messages)
+
+@EDBot.command()
+async def test(ctx: commands.context):
+    espclient = ESP_API_Client()
+    areas = await espclient.getAllAreas()
+    await ctx.send("Choose and Area", view=AreaSelectView(area=areas, espclient=espclient))
