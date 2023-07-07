@@ -1,13 +1,13 @@
 import requests
 from datetime import datetime
-from .core import Config
+from DiscBot.config import Config
 from .core import DatabaseHandler
 from asyncio import sleep
 
 TESTING = False
 
 class ESP_API_Client():
-    TOKEN: str = Config.Token
+    TOKEN: str = Config.ESPToken
     REQUESTURLS = {
         'Status': '',
         'AreaInfo':'https://developer.sepush.co.za/business/2.0/area',

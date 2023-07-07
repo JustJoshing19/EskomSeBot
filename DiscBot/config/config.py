@@ -1,4 +1,3 @@
-# TODO move all config files to one folder
 from os import environ
 from dotenv import load_dotenv
 from discord import Intents
@@ -14,3 +13,11 @@ class Config:
 
     #### Set Command Prefix ####
     comPrefix: str = "!"
+    
+    #### Get Token ####
+    load_dotenv()
+    ESPToken: str = environ['ESPTOKEN']
+
+class DataBase:
+    load_dotenv()
+    dbName: str = environ['DBNAME']

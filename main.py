@@ -1,5 +1,5 @@
 from DiscBot import EDBot
-from DiscBot.core import Config
+from DiscBot.config import Config
 
 def main():
     bot = EDBot

@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 from .DiscViews import AreaSelectView
-from .core import Config
+from .config import Config
 from .EskomSePush import ESP_API_Client
 
 
