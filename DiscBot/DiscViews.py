@@ -1,14 +1,14 @@
+from typing import Optional
 import discord
 from discord import ui
 from .EskomSePush import ESP_API_Client
 
 class AreaSelectView(ui.View):
-    
     areas: list[discord.SelectOption] = []
     client: ESP_API_Client
     
-    def __init__(self, area: list, espclient: ESP_API_Client):
-        super().__init__()
+    def __init__(self, area: list, espclient: ESP_API_Client, timeout: int):
+        super().__init__(timeout=timeout)
         self.client = espclient
         for a in area:
             option = discord.SelectOption(
@@ -16,7 +16,7 @@ class AreaSelectView(ui.View):
                 value=a['id'],
                 )
             self.areas.append(option)
-
+            
     @discord.ui.select(
         placeholder="Choose an area",
         min_values=1,

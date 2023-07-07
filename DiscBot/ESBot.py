@@ -23,12 +23,8 @@ EDBot = EskomSeBot(intents=Config.botIntents, command_prefix=Config.comPrefix)
 async def join(ctx: commands.context, args = None):
     espclient = ESP_API_Client()
     areas = await espclient.getAllAreas()
-    if args:
-        await ctx.reply(args)
-    else:
-        message = areas.__str__()
-        await ctx.reply(message)
-
+    selectView = AreaSelectView(area=areas, espclient=espclient, timeout=60)
+    await ctx.send("Choose and Area", view=selectView)
 
 @EDBot.command()
 async def loadshedding(ctx: commands.context):
@@ -41,9 +37,3 @@ async def loadshedding(ctx: commands.context):
     
     print(messages)
     await ctx.send(messages)
-
-@EDBot.command()
-async def test(ctx: commands.context):
-    espclient = ESP_API_Client()
-    areas = await espclient.getAllAreas()
-    await ctx.send("Choose and Area", view=AreaSelectView(area=areas, espclient=espclient))

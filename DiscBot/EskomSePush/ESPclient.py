@@ -58,7 +58,6 @@ class ESP_API_Client():
         print(response.text)
 
     ###### Database Requests ######
-    # TODO Add methods to send requests to the database
     def getLoadsheddingTimes(self) -> dict:
         data = self.DBHandler.getAllUsersLoadshedding()
 
