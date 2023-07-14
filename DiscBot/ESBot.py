@@ -1,3 +1,5 @@
+import asyncio
+from typing import Optional
 import discord
 from discord.ext import commands
 from .DiscViews import AreaSelectView
@@ -15,6 +17,9 @@ class EskomSeBot(commands.Bot):
     async def on_message(self, message: discord.Message):
         print('#')
         await self.process_commands(message)
+
+    def load_extension(self):
+        asyncio.run(super().load_extension('DiscBot.modules.utils'))
 
 EDBot = EskomSeBot(intents=Config.botIntents, command_prefix=Config.comPrefix)
 
