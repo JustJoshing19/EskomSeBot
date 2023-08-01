@@ -3,6 +3,7 @@ import discord
 from discord import ui
 from .EskomSePush import ESP_API_Client
 
+# TODO Change Area select view to be a constant, reusable View
 class AreaSelectView(ui.View):
     areas: list[discord.SelectOption] = []
     client: ESP_API_Client

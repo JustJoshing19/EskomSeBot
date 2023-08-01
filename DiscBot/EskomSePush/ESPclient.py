@@ -7,6 +7,9 @@ from asyncio import sleep
 TESTING = False
 
 class ESP_API_Client():
+    """Send EskomSePush API requests and handles responses.
+    """
+    
     TOKEN: str = Config.ESPToken
     REQUESTURLS = {
         'Status': '',
@@ -19,6 +22,7 @@ class ESP_API_Client():
     
     DBHandler = DatabaseHandler()
 
+    # TODO Change API requests methods to return values
     ###### API Requests ######
     def getAllowance(self):
         url = self.REQUESTURLS['Checkallowance']
@@ -31,6 +35,7 @@ class ESP_API_Client():
         print(response.text)
 
     def getAreaInfo(self, testing: bool, id: str):
+
         testRequest = ''
         if testing:
             testRequest = '&test=future'
@@ -47,6 +52,7 @@ class ESP_API_Client():
         print(response.text)
 
     def getAreaSearch(self, text: str):
+
         url = self.REQUESTURLS['AreaInfo']
         url = "https://developer.sepush.co.za/business/2.0/areas_search?text=" + text
         payload={}
@@ -95,6 +101,18 @@ class ESP_API_Client():
 
     ###### Util Methods ######
     def formatTime(self, times: str) -> str:
+        """Formats given time string.
+
+        Parameters
+        ----------
+        times : str
+            Time given as a string.
+
+        Returns
+        -------
+        str
+            Formated time string.
+        """
         times = times[:-6]
         times = times.replace("T", " ")
         times: datetime =  datetime.strptime(times, "%Y-%m-%d %H:%M:%S") 
