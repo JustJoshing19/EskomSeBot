@@ -49,7 +49,7 @@ async def join(ctx: commands.context, args = None):
     
     espclient = ESP_API_Client()
     areas = await espclient.getAllAreas()
-    selectView = AreaSelectView(area=areas, espclient=espclient, timeout=60)
+    selectView = AreaSelectView(area=areas, espclient=espclient, timeout=None)
     await ctx.send("Choose and Area", view=selectView)
 
 @EDBot.command()
