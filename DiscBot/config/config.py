@@ -12,8 +12,11 @@ class Config:
     botIntents.message_content = True
 
     #### Set Command Prefix ####
-    comPrefix: str = "!"
+    comPrefix: str = environ["PREFIX"]
     
+    #### Set Text-Channel ####
+    textChannel:str = environ['TCHANNEL']
+
     #### Get Token ####
     load_dotenv()
     ESPToken: str = environ['ESPTOKEN']
